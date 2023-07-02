@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "alien-invasion"
+version = "0.1.0"
+description = "A basic game using the Pygame library."
+authors = ["javi <3051496+lifeBalance@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "alien_invasion"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pygame = "^2.5.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
