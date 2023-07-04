@@ -41,7 +41,7 @@ class AlienInvasion:
             self.bullets.update()
 
             # Get rid of the bullets that dissapear over the top of the screen (x == 0).
-            for bullet in self.bullets.copy():
+            for bullet in self.bullets.copy(): # The copy is a reference to the same list.
                 if bullet.rect.bottom <= 0:
                     self.bullets.remove(bullet)
                 # print(len(self.bullets)) # testing (check console)
@@ -75,8 +75,9 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
-        new_bullet = Bullet(self) # Pass the ai_game instance to the constructor.
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self) # Pass the ai_game instance to the constructor.
+            self.bullets.add(new_bullet)
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
