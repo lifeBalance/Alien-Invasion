@@ -37,20 +37,24 @@ class AlienInvasion:
             # Update the ship position
             self.ship.update()
 
-            # Update the position of the bullets (call .update() for each bullet in the group).
-            self.bullets.update()
-
-            # Get rid of the bullets that dissapear over the top of the screen (x == 0).
-            for bullet in self.bullets.copy(): # The copy is a reference to the same list.
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-                # print(len(self.bullets)) # testing (check console)
+            # Update the position of the bullets.
+            self._update_bullets()
 
             # Update the screen
             self._update_screen()
 
             # Make the loop run 60 times per second
             self.clock.tick(60)
+
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets."""
+        self.bullets.update()   # Call .update() for each bullet in the group).
+
+        # Get rid of the bullets that dissapear over the top of the screen (x == 0).
+        for bullet in self.bullets.copy(): # The copy is a reference to the same list.
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+            # print(len(self.bullets)) # testing (check console)
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
