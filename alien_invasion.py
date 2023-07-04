@@ -40,6 +40,12 @@ class AlienInvasion:
             # Update the position of the bullets (call .update() for each bullet in the group).
             self.bullets.update()
 
+            # Get rid of the bullets that dissapear over the top of the screen (x == 0).
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+                # print(len(self.bullets)) # testing (check console)
+
             # Update the screen
             self._update_screen()
 
