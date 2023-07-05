@@ -35,9 +35,21 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
-        # Let's start by making a single alien
+
+        # Create the first alien.
         alien = Alien(self) # Pass an AlienInvasion instance to the Alien constructor.
-        self.aliens.add(alien)
+        # Store the dimensions of a single alien
+        alien_width = alien.rect.width
+
+        # Let's define the x coord. of the next alien.
+        current_x = alien_width
+        while current_x < (self.settings.screen_width - 2 * alien_width):
+            new_alien = Alien(self) # Create an Alien instance
+            new_alien.x = current_x # Set its x coordinate
+            new_alien.rect.x = current_x # Set the position of the rectangle
+            self.aliens.add(new_alien)  # Add it to the group
+            current_x += 2 * alien_width    # Increment x coord. for next alien
+        # self.aliens.add(alien)
 
 
     def run_game(self):
