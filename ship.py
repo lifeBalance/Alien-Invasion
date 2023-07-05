@@ -10,7 +10,7 @@ class Ship:
         self.settings = ai_game.settings
 
         self.screen_rect = ai_game.screen.get_rect()
-        # Default size for the ship image
+        # Default size for the ship image TODO: ADD TO SETTINGS
         self.default_size = (40, 40)
 
         # Load the ship image and get its rect.
