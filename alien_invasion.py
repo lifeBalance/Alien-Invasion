@@ -32,24 +32,31 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
 
+    def _create_alien(self, x_position, y_position):
+        """Create an alien and place it in the row."""
+        new_alien = Alien(self)  # Create an Alien instance
+        new_alien.x = x_position  # Set its x coordinate
+        new_alien.rect.x = x_position  # Set the position of the rectangle horizontally.
+        new_alien.rect.y = y_position  # Set the position of the rectangle vertically.
+        self.aliens.add(new_alien)  # Add it to the group
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
 
-        # Create the first alien.
-        alien = Alien(self) # Pass an AlienInvasion instance to the Alien constructor.
-        # Store the dimensions of a single alien
-        alien_width = alien.rect.width
+        # Instantiate an Alien just to take its dimensions (not created).
+        alien = Alien(self)  # Pass an AlienInvasion instance to the Alien constructor.
+        # Unpacking the width and height of the first Alien instance.
+        alien_width, alien_height = alien.rect.size
 
-        # Let's define the x coord. of the next alien.
-        current_x = alien_width
-        while current_x < (self.settings.screen_width - 2 * alien_width):
-            new_alien = Alien(self) # Create an Alien instance
-            new_alien.x = current_x # Set its x coordinate
-            new_alien.rect.x = current_x # Set the position of the rectangle
-            self.aliens.add(new_alien)  # Add it to the group
-            current_x += 2 * alien_width    # Increment x coord. for next alien
-        # self.aliens.add(alien)
+        # We'll use these dimensions to separate the aliens.
+        current_x, current_y = alien_width, alien_height
+        while current_y < (self.settings.screen_height - 3 * alien_height):
+            while current_x < (self.settings.screen_width - 2 * alien_width):
+                self._create_alien(current_x, current_y) # CREATE THE ALIEN!
+                current_x += 2 * alien_width  # Increment x coord. for next alien
+            # Finished a row; reset x coordinates, and increment y coordinates.
+            current_x = alien_width # Next row starts at the beginning.
+            current_y += 2 * alien_height
 
 
     def run_game(self):
@@ -72,10 +79,10 @@ class AlienInvasion:
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
-        self.bullets.update()   # Call .update() for each bullet in the group).
+        self.bullets.update()  # Call .update() for each bullet in the group).
 
         # Get rid of the bullets that dissapear over the top of the screen (x == 0).
-        for bullet in self.bullets.copy(): # The copy is a reference to the same list.
+        for bullet in self.bullets.copy():  # The copy is a reference to the same list.
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
             # print(len(self.bullets)) # testing (check console)
@@ -104,7 +111,7 @@ class AlienInvasion:
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
         if len(self.bullets) < self.settings.bullets_allowed:
-            new_bullet = Bullet(self) # Pass the ai_game instance to the constructor.
+            new_bullet = Bullet(self)  # Pass the ai_game instance to the constructor.
             self.bullets.add(new_bullet)
 
     def _check_keyup_events(self, event):
