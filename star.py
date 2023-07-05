@@ -18,4 +18,7 @@ class Star(Sprite):
     
     def draw_star(self):
         """Draw the bullet to the screen."""
-        pygame.draw.rect(self.screen, self.color, self.rect)
+        red = randint(100, 255)
+        green = randint(100, 255)
+        blue = randint(100, 255)
+        pygame.draw.rect(self.screen, (red, green, blue), self.rect)
