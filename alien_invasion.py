@@ -4,7 +4,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
-
+from star import Star
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -28,6 +28,9 @@ class AlienInvasion:
         self.ship = Ship(self)
         # Greate a group for the bullets
         self.bullets = pygame.sprite.Group()
+        # Create a group for the stars
+        self.stars = pygame.sprite.Group()
+        self._create_stars()
         # The aliens are here!
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
@@ -40,6 +43,14 @@ class AlienInvasion:
         new_alien.rect.y = y_position  # Set the position of the rectangle vertically.
         self.aliens.add(new_alien)  # Add it to the group
 
+    def _create_stars(self):
+        """Create a group (list) of 1000 stars of random sizes at random positions."""
+        i = 0
+        while i < 1000:
+            new_star = Star(self)
+            self.stars.add(new_star) # Add star to the group
+            i += 1
+    
     def _create_fleet(self):
         """Create the fleet of aliens."""
 
@@ -130,6 +141,11 @@ class AlienInvasion:
         # Paint all the bullets in the screen.
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        
+        # Paint the sky
+        for star in self.stars.sprites():
+            star.draw_star()
+
         # Paint the ship
         self.ship.blitme()
         # Paint the aliens
