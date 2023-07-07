@@ -18,19 +18,23 @@ class Bullet(Sprite):
             # - coordinates of left corner of the rectangle: 0, 0
             # - width of the rectangle (defined in settings)
             # - height of the rectangle (defined in settings)
-            0, 0, self.settings.bullet_width, self.settings.bullet_height
+            0,
+            0,
+            self.settings.bullet_width,
+            self.settings.bullet_height,
         )
         # The midtop of the bullet matches the midtop of the ship!
         self.rect.midtop = ai_game.ship.rect.midtop
 
         # Store the bullet's position as float.
         self.y = float(self.rect.y)
-    
+
     def update(self):
         """Move the bullet up the screen."""
         # Update the y coordinate of the bullet (vertically in straight line).
-        self.y -= self.settings.bullet_speed # Going up, decrease y!
-        # Update the y coordinate of the rectangle position using the y property of the bullet.
+        self.y -= self.settings.bullet_speed  # Going up, decrease y!
+        # Update the y coordinate of the rectangle position using the y property 
+        # of the bullet.
         self.rect.y = self.y
 
     def draw_bullet(self):
