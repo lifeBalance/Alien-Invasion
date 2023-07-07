@@ -115,6 +115,14 @@ class AlienInvasion:
         # individual alien update method.
         self.aliens.update()
 
+        # Look for alien-ship collisions.
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print('Ship hit!!!') # For now...
+            # Restart the game:
+            # - Delete all remaining aliens and bullets.
+            # - Recenter the ship.
+            # - Create new fleet.
+
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
         self.bullets.update()  # Call .update() for each bullet in the group).
