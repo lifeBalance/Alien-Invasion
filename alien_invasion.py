@@ -128,6 +128,12 @@ class AlienInvasion:
         # In case of collision, remove both the bullet and the alien.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
+        # If there's no aliens left, repopulate the fleet!
+        if not self.aliens:
+            # Destroy existing bullets and create new fleet.
+            self.bullets.empty()
+            self._create_fleet()
+
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
