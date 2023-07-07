@@ -123,7 +123,10 @@ class AlienInvasion:
         for bullet in self.bullets.copy():  # The copy is a reference to the same list.
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
-            # print(len(self.bullets)) # testing (check console)
+
+        # Check for any bullets that have hit aliens.
+        # In case of collision, remove both the bullet and the alien.
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
