@@ -1,6 +1,14 @@
+# Standard library modules
 import sys
+from time import sleep
+from typing import Self
+
+# 3rd party library modules
 import pygame
+
+# Our modules
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -24,6 +32,8 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         # Set the background color of the window (using RGB)
         self.bg_color = self.settings.bg_color
+        # Instantiate the GameStats before the ship and other elements
+        self.stats = GameStats(self)
         # Instantiate the Ship class, passing the game to the constructor
         self.ship = Ship(self)
         # Greate a group for the bullets
@@ -34,6 +44,22 @@ class AlienInvasion:
         # The aliens are here!
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+
+    def _ship_hit(self):
+        """Handle the ship being hit by an alien."""
+        # Decrement ships left.
+        self.stats.ships_left -= 1
+
+        # Remove remaining bullets and aliens.
+        self.bullets.empty()
+        self.aliens.empty()
+
+        # Create new fleet and center the ship.
+        self._create_fleet()
+        self.ship._center_ship()
+
+        # Pause
+        sleep(0.5)
 
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
@@ -122,6 +148,7 @@ class AlienInvasion:
             # - Delete all remaining aliens and bullets.
             # - Recenter the ship.
             # - Create new fleet.
+            self._ship_hit()
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
