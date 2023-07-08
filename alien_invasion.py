@@ -136,6 +136,7 @@ class AlienInvasion:
         the alien fleet.
         """
         self._check_fleet_edges()
+
         # We call update on the aliens group, which internally calls each
         # individual alien update method.
         self.aliens.update()
@@ -148,6 +149,9 @@ class AlienInvasion:
             # - Recenter the ship.
             # - Create new fleet.
             self._ship_hit()
+
+        # Look for aliens hitting the bottom of the screen.
+        self._check_aliens_bottom()
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -171,6 +175,14 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+
+    def _check_aliens_bottom(self):
+        """Check if any aliens have reached the bottom of the screen."""
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.settings.screen_height:
+                # Treat this the same as if the ship got hit by alien.
+                self._ship_hit()
+                break
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""

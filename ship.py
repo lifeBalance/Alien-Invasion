@@ -46,5 +46,7 @@ class Ship:
 
     def _center_ship(self):
         """Center the ship on the screen."""
+        # Actually center the ship
         self.rect.midbottom = self.screen_rect.midbottom
+        # Reset the x attribute which allows us to track the ship location.
         self.x = float(self.rect.x)
