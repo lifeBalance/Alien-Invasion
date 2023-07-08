@@ -12,6 +12,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from star import Star
+from button import Button
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -43,22 +44,29 @@ class AlienInvasion:
         # The aliens are here!
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        # Start Alien Invasion in an inactive state.
+        self.game_active = False
+        # Instantiate a Button object
+        self.play_button = Button(self, 'Play')
 
     def _ship_hit(self):
         """Handle the ship being hit by an alien."""
-        # Decrement ships left.
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
+            # Decrement ships left.
+            self.stats.ships_left -= 1
 
-        # Remove remaining bullets and aliens.
-        self.bullets.empty()
-        self.aliens.empty()
+            # Remove remaining bullets and aliens.
+            self.bullets.empty()
+            self.aliens.empty()
 
-        # Create new fleet and center the ship.
-        self._create_fleet()
-        self.ship._center_ship()
+            # Create new fleet and center the ship.
+            self._create_fleet()
+            self.ship._center_ship()
 
-        # Pause
-        sleep(0.5)
+            # Pause
+            sleep(0.5)
+        else:
+            self.game_active = False
 
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
@@ -115,14 +123,15 @@ class AlienInvasion:
             # Watch for keyboard and mouse events (Event loop).
             self._check_events()
 
-            # Update the ship position
-            self.ship.update()
+            if self.game_active:
+                # Update the ship position
+                self.ship.update()
 
-            # Update the position of the bullets.
-            self._update_bullets()
-            
-            # Update the aliens position
-            self._update_aliens()
+                # Update the position of the bullets.
+                self._update_bullets()
+                
+                # Update the aliens position
+                self._update_aliens()
 
             # Update the screen
             self._update_screen()
@@ -236,6 +245,9 @@ class AlienInvasion:
         self.ship.blitme()
         # Paint the aliens
         self.aliens.draw(self.screen)
+        # Paint the button(if the game is inactive) on top of everything else!
+        if not self.game_active:
+            self.play_button.draw_button()
         # Make the most recently drawn screen visible.
         pygame.display.flip()
 
