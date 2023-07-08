@@ -1,7 +1,6 @@
 # Standard library modules
 import sys
 from time import sleep
-from typing import Self
 
 # 3rd party library modules
 import pygame
