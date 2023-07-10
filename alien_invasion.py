@@ -236,7 +236,8 @@ class AlienInvasion:
         pygame.mixer.Sound.play(self.settings.start)
 
         # Reset the game statistics.
-        self.stats._reset_stats()
+        self.stats._reset_stats()   # reset stats
+        self.sb.prep_score()        # draw stats to scoreboard
         self.game_active = True
 
         # Remove remaining bullets and aliens.
