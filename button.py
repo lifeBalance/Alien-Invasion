@@ -10,9 +10,9 @@ class Button:
 
         # Set the dimensions and properties of the button.
         self.width, self.height = 200, 50   # Button size.
-        self.bg_color = (255, 255, 255)     # Dark grey background.
+        self.bg_color = (124, 252, 0)     # Dark grey background.
         self.button_color = (90, 90, 90)     # Dark grey background.
-        self.text_color = (255, 255, 255)   # White text.
+        self.text_color = (124, 252, 0)   # White text.
         self.font = pygame.font.SysFont(None, 48)
 
         # Build the button (made up by 2 rectangles) and center it.

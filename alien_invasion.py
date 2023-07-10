@@ -13,6 +13,7 @@ from bullet import Bullet
 from alien import Alien
 from star import Star
 from button import Button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -34,6 +35,8 @@ class AlienInvasion:
         self.bg_color = self.settings.bg_color
         # Instantiate the GameStats before the ship and other elements
         self.stats = GameStats(self)
+        # Instantiate Scoreboard to show the stats
+        self.sb = Scoreboard(self)
         # Instantiate the Ship class, passing the game to the constructor
         self.ship = Ship(self)
         # Greate a group for the bullets
@@ -293,6 +296,10 @@ class AlienInvasion:
         self.ship.blitme()
         # Paint the aliens
         self.aliens.draw(self.screen)
+
+        # Draw the scoreboard
+        self.sb.show_score()
+
         # Paint the button(if the game is inactive) on top of everything else!
         if not self.game_active:
             self.play_button.draw_button()
