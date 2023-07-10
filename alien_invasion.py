@@ -191,7 +191,9 @@ class AlienInvasion:
         print(collisions)
 
         # If we hit an alien.
-        if collisions:
+        if collisions: # collisions is a dictionary (empty if no collisions)
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()    # Actually write it to the screen.
             pygame.mixer.Sound.play(self.settings.boom)
 
         # If there's no aliens left, repopulate the fleet!

@@ -41,7 +41,9 @@ class Settings:
         self.alien_speed = 1.0
         # We'll multiply by 1 to go to the right; and by -1 to go to the left.
         self.fleet_direction = 1
-
+        
+        # Scoring settings
+        self.alien_points = 50
 
     def increase_speed(self):
         """Increase speed settings of all movable game elements."""
