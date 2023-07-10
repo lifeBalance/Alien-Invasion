@@ -222,6 +222,8 @@ class AlienInvasion:
         button_clicked = self.play_button.btn_rect.collidepoint(mouse_pos)
         # Disable the button when the game is active
         if button_clicked and not self.game_active:
+            # Reset the game settings (speed).
+            self.settings.initialize_dynamic_settings()
             self._start_game()
     
     def _start_game(self):

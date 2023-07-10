@@ -38,7 +38,7 @@ class Settings:
         """Initialize settings that change throughout the game."""
         self.ship_speed = 2.5
         self.bullet_speed = 5.0
-        self.alien_speed = 10.0
+        self.alien_speed = 1.0
         # We'll multiply by 1 to go to the right; and by -1 to go to the left.
         self.fleet_direction = 1
 
