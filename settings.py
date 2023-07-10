@@ -1,3 +1,5 @@
+import pygame
+
 class Settings:
     """A class to store all settings for Alien Invasion."""
 
@@ -23,13 +25,20 @@ class Settings:
         # General setting for controlling speeds (increases with levels)
         self.speedup_scale = 1.0
 
+        # Sounds
+        self.boom = pygame.mixer.Sound('assets/sounds/boom.wav')
+        self.laser = pygame.mixer.Sound('assets/sounds/laser.wav')
+        self.explosion = pygame.mixer.Sound('assets/sounds/explosion.wav')
+        self.start = pygame.mixer.Sound('assets/sounds/start2.wav')
+        self.game_over = pygame.mixer.Sound('assets/sounds/game_over.wav')
+
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
         """Initialize settings that change throughout the game."""
         self.ship_speed = 2.5
         self.bullet_speed = 5.0
-        self.alien_speed = 1.0
+        self.alien_speed = 10.0
         # We'll multiply by 1 to go to the right; and by -1 to go to the left.
         self.fleet_direction = 1
 

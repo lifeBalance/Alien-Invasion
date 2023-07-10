@@ -51,6 +51,9 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Handle the ship being hit by an alien."""
+        # Play explosion sound (do it at the top to avoid sound delay.)
+        pygame.mixer.Sound.play(self.settings.explosion)
+
         if self.stats.ships_left > 0:
             # Decrement ships left.
             self.stats.ships_left -= 1
@@ -64,8 +67,10 @@ class AlienInvasion:
             self.ship._center_ship()
 
             # Pause
-            sleep(0.5)
+            sleep(2.5)
         else:
+            # Play game over sound
+            pygame.mixer.Sound.play(self.settings.game_over)
             self.game_active = False
             # Show the cursor again (we need it to click Play!)
             pygame.mouse.set_visible(True)
@@ -180,6 +185,11 @@ class AlienInvasion:
         # Check for any bullets that have hit aliens.
         # In case of collision, remove both the bullet and the alien.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        print(collisions)
+
+        # If we hit an alien.
+        if collisions:
+            pygame.mixer.Sound.play(self.settings.boom)
 
         # If there's no aliens left, repopulate the fleet!
         if not self.aliens:
@@ -215,6 +225,9 @@ class AlienInvasion:
             self._start_game()
     
     def _start_game(self):
+        # Play sound
+        pygame.mixer.Sound.play(self.settings.start)
+
         # Reset the game statistics.
         self.stats._reset_stats()
         self.game_active = True
@@ -248,6 +261,8 @@ class AlienInvasion:
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
         if len(self.bullets) < self.settings.bullets_allowed:
+            # Play laser sound
+            pygame.mixer.Sound.play(self.settings.laser)
             new_bullet = Bullet(self)  # Pass the ai_game instance to the constructor.
             self.bullets.add(new_bullet)
 
