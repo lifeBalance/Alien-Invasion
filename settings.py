@@ -25,6 +25,9 @@ class Settings:
         # General setting for controlling speeds (increases with levels)
         self.speedup_scale = 1.0
 
+        # Higher levels should grant higher scores per alien kill.
+        self.score_scale = 1.5
+
         # Sounds
         self.boom = pygame.mixer.Sound('assets/sounds/boom.wav')
         self.laser = pygame.mixer.Sound('assets/sounds/laser.wav')
@@ -50,3 +53,5 @@ class Settings:
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
+        # We need to cast to integer because score_scale is a float
+        self.alien_points = int(self.alien_points * self.score_scale)
