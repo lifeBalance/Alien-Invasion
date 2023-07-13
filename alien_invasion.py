@@ -206,6 +206,10 @@ class AlienInvasion:
             self._create_fleet()
             self.settings.increase_speed()
 
+            # Increase the level when alien fleet is anihilated
+            self.stats.level += 1
+            self.sb.prep_level()
+
     def _check_aliens_bottom(self):
         """Check if any aliens have reached the bottom of the screen."""
         for alien in self.aliens.sprites():
@@ -241,6 +245,7 @@ class AlienInvasion:
         # Reset the game statistics.
         self.stats._reset_stats()   # reset stats
         self.sb.prep_score()        # draw stats to scoreboard
+        self.sb.prep_level()        # draw the level
         self.game_active = True
 
         # Remove remaining bullets and aliens.
