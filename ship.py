@@ -1,10 +1,12 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """A class to manage the ship."""
 
     def __init__(self, ai_game):
         """Initialize the ship and set its starting position."""
+        super().__init__() # Invoke constructor of the parent class.
         self.screen = ai_game.screen
         # Settings instance (there's already one available in the ai_game)
         self.settings = ai_game.settings
