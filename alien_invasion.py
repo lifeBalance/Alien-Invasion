@@ -195,6 +195,8 @@ class AlienInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()    # Actually write it to the screen.
+            # Update high score in case current score is greater
+            self.sb.prep_high_score()
             pygame.mixer.Sound.play(self.settings.boom)
 
         # If there's no aliens left, repopulate the fleet!
